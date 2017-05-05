@@ -119,8 +119,8 @@
         UMTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"UMCell" forIndexPath:indexPath];
         
         // optionally specify a width that each set of utility buttons will share
-        [cell setLeftUtilityButtons:[self leftButtons] WithButtonWidth:32.0f];
-        [cell setRightUtilityButtons:[self rightButtons] WithButtonWidth:58.0f];
+        [cell setLeftUtilityButtons:[self leftButtons] WithButtonWidth:32.0f buttonHeight:-1.0];
+        [cell setRightUtilityButtons:[self rightButtons] WithButtonWidth:58.0f buttonHeight:-1.0];
         cell.delegate = self;
         
         cell.label.text = [NSString stringWithFormat:@"Section: %ld, Seat: %ld", (long)indexPath.section, (long)indexPath.row];

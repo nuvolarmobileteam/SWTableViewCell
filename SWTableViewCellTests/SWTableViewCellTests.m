@@ -1,7 +1,8 @@
 #import <Specta/Specta.h>
 #import <Expecta/Expecta.h>
 #import <FBSnapshotTestCase/FBSnapshotTestCase.h>
-#import <Expecta+Snapshots/EXPMatchers+FBSnapshotTest.h>
+#import <Expecta/Expecta.h>
+//#import <Expecta+Snapshots/EXPMatchers+FBSnapshotTest.h>
 #import <OCMock/OCMock.h>
 #import "SWTableViewCell.h"
 
@@ -58,8 +59,8 @@ describe(@"buttons", ^{
     
     before(^{
         cell = [[SWTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        [cell setRightUtilityButtons:rightButtons WithButtonWidth:44.0f];
-        [cell setLeftUtilityButtons:leftButtons WithButtonWidth:44.0f];
+        [cell setRightUtilityButtons:rightButtons WithButtonWidth:44.0f buttonHeight:-1.0];
+        [cell setLeftUtilityButtons:leftButtons WithButtonWidth:44.0f buttonHeight:-1.0f];
     });
 
     it(@"should have two right buttons", ^{

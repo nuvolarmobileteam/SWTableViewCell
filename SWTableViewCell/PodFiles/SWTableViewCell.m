@@ -166,14 +166,21 @@ static NSString * const kTableViewCellContentView = @"UITableViewCellContentView
                                ]];
         
         [clipView addSubview:buttonView];
+        
+        NSLayoutConstraint *buttonViewTopConstraint = [NSLayoutConstraint constraintWithItem:buttonView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:clipView attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0];
+        buttonViewTopConstraint.priority = UILayoutPriorityRequired;
+        NSLayoutConstraint *buttonViewBottomConstraint = [NSLayoutConstraint constraintWithItem:buttonView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:clipView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0];
+        buttonViewBottomConstraint.priority = UILayoutPriorityDefaultHigh;
+        // Constrain the maximum button width so that at least a button's worth of contentView is left visible. (The button view will shrink accordingly.)
+        NSLayoutConstraint *buttonViewWidthConstraint = [NSLayoutConstraint constraintWithItem:buttonView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationLessThanOrEqual toItem:self.contentView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:-kUtilityButtonWidthDefault];
+        buttonViewWidthConstraint.priority = UILayoutPriorityDefaultHigh;
+
         [self addConstraints:@[
                                // Pin the button view to the appropriate outer edges of its clipping view.
-                               [NSLayoutConstraint constraintWithItem:buttonView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:clipView attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0],
-                               [NSLayoutConstraint constraintWithItem:buttonView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:clipView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0],
+                               buttonViewTopConstraint,
+                               buttonViewBottomConstraint,
                                [NSLayoutConstraint constraintWithItem:buttonView attribute:alignmentAttribute relatedBy:NSLayoutRelationEqual toItem:clipView attribute:alignmentAttribute multiplier:1.0 constant:0.0],
-                               
-                               // Constrain the maximum button width so that at least a button's worth of contentView is left visible. (The button view will shrink accordingly.)
-                               [NSLayoutConstraint constraintWithItem:buttonView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationLessThanOrEqual toItem:self.contentView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:-kUtilityButtonWidthDefault],
+                               buttonViewWidthConstraint
                                ]];
     }
 }
@@ -251,12 +258,12 @@ static NSString * const kTableViewPanState = @"state";
     }
 }
 
-- (void)setLeftUtilityButtons:(NSArray *)leftUtilityButtons WithButtonWidth:(CGFloat) width
+- (void)setLeftUtilityButtons:(NSArray *)leftUtilityButtons WithButtonWidth:(CGFloat) width buttonHeight:(CGFloat)height
 {
     _leftUtilityButtons = leftUtilityButtons;
     
-    [self.leftUtilityButtonsView setUtilityButtons:leftUtilityButtons WithButtonWidth:width];
-
+    [self.leftUtilityButtonsView setUtilityButtons:leftUtilityButtons WithButtonWidth:width buttonHeight:height];
+    
     [self.leftUtilityButtonsView layoutIfNeeded];
     [self layoutIfNeeded];
 }
@@ -273,12 +280,12 @@ static NSString * const kTableViewPanState = @"state";
     }
 }
 
-- (void)setRightUtilityButtons:(NSArray *)rightUtilityButtons WithButtonWidth:(CGFloat) width
+- (void)setRightUtilityButtons:(NSArray *)rightUtilityButtons WithButtonWidth:(CGFloat) width buttonHeight:(CGFloat)height
 {
     _rightUtilityButtons = rightUtilityButtons;
     
-    [self.rightUtilityButtonsView setUtilityButtons:rightUtilityButtons WithButtonWidth:width];
-
+    [self.rightUtilityButtonsView setUtilityButtons:rightUtilityButtons WithButtonWidth:width buttonHeight:height];
+    
     [self.rightUtilityButtonsView layoutIfNeeded];
     [self layoutIfNeeded];
 }

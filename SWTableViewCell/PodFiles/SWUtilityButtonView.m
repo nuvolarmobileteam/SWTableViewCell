@@ -18,6 +18,8 @@
 
 @implementation SWUtilityButtonView
 
+CGFloat const SWUtilityButtonViewDefaultHeight = -1.0;
+
 #pragma mark - SWUtilityButonView initializers
 
 - (id)initWithUtilityButtons:(NSArray *)utilityButtons parentCell:(SWTableViewCell *)parentCell utilityButtonSelector:(SEL)utilityButtonSelector
@@ -57,10 +59,10 @@
 - (void)setUtilityButtons:(NSArray *)utilityButtons
 {
     // if no width specified, use the default width
-    [self setUtilityButtons:utilityButtons WithButtonWidth:kUtilityButtonWidthDefault];
+    [self setUtilityButtons:utilityButtons WithButtonWidth:kUtilityButtonWidthDefault buttonHeight:SWUtilityButtonViewDefaultHeight];
 }
 
-- (void)setUtilityButtons:(NSArray *)utilityButtons WithButtonWidth:(CGFloat)width
+- (void)setUtilityButtons:(NSArray *)utilityButtons WithButtonWidth:(CGFloat)width buttonHeight:(CGFloat)height
 {
     for (UIButton *button in _utilityButtons)
     {
@@ -116,6 +118,20 @@
                                                                      metrics:nil
                                                                        views:NSDictionaryOfVariableBindings(precedingView)]];
     }
+    
+    if (height != SWUtilityButtonViewDefaultHeight) {
+        
+        NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                                            attribute:NSLayoutAttributeHeight
+                                                                            relatedBy:NSLayoutRelationEqual
+                                                                               toItem:nil
+                                                                            attribute:NSLayoutAttributeNotAnAttribute
+                                                                           multiplier:1.0
+                                                                             constant:height];
+        heightConstraint.priority = UILayoutPriorityRequired;
+        [self addConstraint:heightConstraint];
+    }
+
     
     self.widthConstraint.constant = (width * utilityButtons.count);
     
