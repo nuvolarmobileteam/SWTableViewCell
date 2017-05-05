@@ -6,6 +6,7 @@ target 'SWTableViewCell' do
 end
 
 target 'SWTableViewCellTests' do
+    use_frameworks!
   pod 'FBSnapshotTestCase'
   pod 'Expecta+Snapshots'
   pod 'Specta'
