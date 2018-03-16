@@ -8,6 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol SWCellScrollViewDelegate;
+
 @interface SWCellScrollView : UIScrollView <UIGestureRecognizerDelegate>
 
+@property (nonatomic, weak) id <SWCellScrollViewDelegate> delegate;
+
 @end
+
+@protocol SWCellScrollViewDelegate <NSObject>
+
+@optional
+
+// (Jesus) Implement this method to avoid the framework clash with the UIGestureRecognizer
+- (BOOL)swipeableCellScrollViewShouldRecognizeSimultaneouslyGestures:(SWCellScrollView *)scrollView;
+
+@end
+
+
+
