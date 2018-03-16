@@ -21,6 +21,13 @@
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    
+    if ([self.delegate conformsToProtocol:@protocol(SWCellScrollViewDelegate)] &&
+        [self.delegate respondsToSelector:@selector(swipeableCellScrollViewShouldRecognizeSimultaneouslyGestures:)]) {
+        
+        return [self.delegate swipeableCellScrollViewShouldRecognizeSimultaneouslyGestures:self];
+    }
+    
     // Find out if the user is actively scrolling the tableView of which this is a member.
     // If they are, return NO, and don't let the gesture recognizers work simultaneously.
     //
