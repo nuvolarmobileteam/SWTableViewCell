@@ -21,8 +21,7 @@
 @optional
 
 // (Jesus) Implement this method to avoid the framework clash with the UIGestureRecognizer
-- (BOOL)swipeableCellScrollViewShouldRecognizeSimultaneouslyGestures:(SWCellScrollView *)scrollView;
-
+- (BOOL)swipeableCellScrollView:(SWCellScrollView *)scrollView withGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
 @end
 
 
