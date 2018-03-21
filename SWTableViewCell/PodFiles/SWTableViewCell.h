@@ -33,16 +33,14 @@ typedef NS_ENUM(NSInteger, SWCellState)
 - (void)swipeableTableViewCellDidEndScrolling:(SWTableViewCell *)cell;
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didScroll:(UIScrollView *)scrollView;
 
-- (void)swipeableTableViewCell:(SWTableViewCell *)cell hasDelegate:(BOOL)hasDelegate;
-
 @end
 
 @interface SWTableViewCell : UITableViewCell
 
 @property (nonatomic, copy) NSArray *leftUtilityButtons;
 @property (nonatomic, copy) NSArray *rightUtilityButtons;
-@property (nonatomic, strong) UIScrollView *cellScrollView;
-@property (nonatomic, assign) SWCellState cellState; // The state of the cell within the scroll view, can be left, right or middle
+@property (nonatomic, strong, readonly) UIScrollView *cellScrollView;
+@property (nonatomic, assign, readonly) SWCellState cellState; // The state of the cell within the scroll view, can be left, right or middle
 
 @property (nonatomic, weak) id <SWTableViewCellDelegate> delegate;
 
