@@ -12,7 +12,7 @@
 
 @interface SWCellScrollView : UIScrollView <UIGestureRecognizerDelegate>
 
-@property (nonatomic, weak) id <SWCellScrollViewDelegate> delegate;
+@property (nonatomic, weak) id <SWCellScrollViewDelegate, UIScrollViewDelegate> delegate;
 
 @end
 
